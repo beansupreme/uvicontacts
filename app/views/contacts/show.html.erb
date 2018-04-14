@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col">
+  	<p id="notice"><%= notice %></p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">  	
+		<p>
+		  <strong>Name:</strong>
+		  <%= @contact.name %>
+		</p>
+
+		<p>
+		  <strong>Telephone:</strong>
+		  <%= @contact.telephone %>
+		</p>
+
+		<p>
+		  <strong>Emergency contact name:</strong>
+		  <%= @contact.emergency_contact_name %>
+		</p>
+
+		<p>
+		  <strong>Emergency contact telephone:</strong>
+		  <%= @contact.emergency_contact_telephone %>
+		</p>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col">
+  	<%= link_to 'Edit', edit_contact_path(@contact) %> |
+		<%= link_to 'Back', contacts_path %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+  </div>
+</div>
+
+
+
+
+
