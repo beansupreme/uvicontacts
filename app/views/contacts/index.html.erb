@@ -40,7 +40,9 @@
           <% end %>
         </tbody>
       </table>
-    <%= submit_tag "Delete Selected Contacts", class: 'btn btn-danger'%>
+      <%= will_paginate @contacts %>
+      <br>
+      <%= submit_tag "Delete Selected Contacts", class: 'btn btn-danger'%>
     <% end %>
   </div>
 </div>

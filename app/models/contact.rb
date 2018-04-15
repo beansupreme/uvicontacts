@@ -1,6 +1,10 @@
 class Contact < ActiveRecord::Base
   require 'csv'
 
+  def self.per_page
+    10
+  end
+
   def self.import(file)
     index = 0
     CSV.foreach(file.path, headers: true) do |row|
