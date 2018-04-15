@@ -11,30 +11,37 @@
 
 <div class="row">
   <div class="col">
-    <table class='table'>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Telephone</th>
-          <th>Emergency contact name</th>
-          <th>Emergency contact telephone</th>
-          <th colspan="2"></th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @contacts.each do |contact| %>
+    <%= form_tag destroy_multiple_contacts_path, method: :delete do %>
+      <table class='table'>
+        <thead>
           <tr>
-            <td><%= link_to contact.name, edit_contact_path(contact) %> </td>
-            <td><%= contact.telephone %></td>
-            <td><%= contact.emergency_contact_name %></td>
-            <td><%= contact.emergency_contact_telephone %></td>
-            <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
-            <td><%= link_to 'Destroy', contact, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <th colspan="1"></th>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Telephone</th>
+            <th>Emergency contact name</th>
+            <th>Emergency contact telephone</th>
+            <th colspan="2"></th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+
+        <tbody>      
+          <% @contacts.each do |contact| %>
+            <tr>
+              <td><%= check_box_tag 'ids[]', contact.id %></td>
+              <td><%= contact.id %></td>
+              <td><%= link_to contact.name, edit_contact_path(contact) %> </td>
+              <td><%= contact.telephone %></td>
+              <td><%= contact.emergency_contact_name %></td>
+              <td><%= contact.emergency_contact_telephone %></td>
+              <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
+              <td><%= link_to 'Destroy', contact, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <%= submit_tag "Delete Selected Contacts", class: 'btn btn-danger'%>
+    <% end %>
   </div>
 </div>
 
@@ -42,7 +49,7 @@
 
 
 <div class="row">
-  <div class="col">
+  <div class="col-md-3">
     <%= link_to 'New Contact', new_contact_path, class: 'btn btn-primary' %>
   </div>
 </div>

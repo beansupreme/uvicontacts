@@ -79,6 +79,15 @@ class ContactsController < ApplicationController
     end
   end
 
+  def destroy_multiple
+    @contacts = Contact.where(id: params[:ids])
+    @contacts.destroy_all
+    respond_to do |format|
+      format.html { redirect_to contacts_url, notice: "Contacts #{params[:ids]} were successfully destroyed." }
+      format.json { head :no_content }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_contact

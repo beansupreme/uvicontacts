@@ -21,7 +21,12 @@ RSpec.describe ContactsController, type: :controller do
   # Contact. As you add validations to Contact, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      name: 'Test Contact',
+      telephone: '440-123-5123',
+      emergency_contact_name: 'Mother',
+      emergency_contact_telephone: '332-123-4123'
+    }
   }
 
   let(:invalid_attributes) {
@@ -63,6 +68,7 @@ RSpec.describe ContactsController, type: :controller do
   end
 
   describe "GET #edit" do
+    include_context 'with a logged in user'
     it "returns a success response" do
       contact = Contact.create! valid_attributes
       get :edit, {:id => contact.to_param}, valid_session
@@ -178,6 +184,33 @@ RSpec.describe ContactsController, type: :controller do
     it "redirects to the contacts list" do
       contact = Contact.create! valid_attributes
       delete :destroy, {:id => contact.to_param}, valid_session
+      expect(response).to redirect_to(contacts_url)
+    end
+  end
+
+  describe "DELETE #destroy_multiple" do
+    include_context 'with a logged in user'
+    let!(:contact_one) do
+      Contact.create!(valid_attributes)
+    end
+    let!(:contact_two) do
+      Contact.create!(valid_attributes)
+    end
+
+    it "destroys the requested contacts" do
+      contact_three = Contact.create! valid_attributes
+
+      expect {
+        delete :destroy_multiple, {:ids => [contact_one.id, contact_two.id] }, valid_session
+      }.to change(Contact, :count).by(-2)
+
+      expect(Contact.find_by_id(contact_one.id)).not_to be_present
+      expect(Contact.find_by_id(contact_two.id)).not_to be_present
+      expect(Contact.find_by_id(contact_three.id)).to be_present
+    end
+
+    it "redirects to the contacts list" do
+      delete :destroy_multiple, {:ids => [contact_one.id, contact_two.id]}, valid_session
       expect(response).to redirect_to(contacts_url)
     end
   end
