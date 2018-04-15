@@ -1,6 +1,8 @@
 <div class="row">
   <div class="col">
-    <p id="notice"><%= notice %></p>
+    <div class="alert alert-info">
+      <p id="notice"><%= notice %></p>
+    </div>
 
     <h1>Listing Contacts</h1>
   </div>
@@ -44,4 +46,21 @@
     <%= link_to 'New Contact', new_contact_path, class: 'btn btn-primary' %>
   </div>
 </div>
+
+<br>
+<br>
+
+<div class="row">
+  <div class="col">
+    <h5>Import a list of contacts</h4>
+    <div class="alert alert-info">
+      <p>CSV file must have these 4 columns in order: Name, Telephone, Emergency Contact Name, and Emergency Contact Telephone. Uploading the same names twice will result in duplicate contacts.</p>
+    </div>
+    <%= form_tag import_contacts_path, multipart: true do %>
+      <%= file_field_tag :file %>
+      <%= submit_tag 'Import Contacts CSV', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>
+
 

@@ -38,6 +38,23 @@ class ContactsController < ApplicationController
     end
   end
 
+  def import
+    file = params.require(:file)
+    begin
+      Contact.import(file)
+      respond_to do |format|
+        format.html { redirect_to contacts_url, notice: 'Contacts were successfully imported' }
+        format.json { head :no_content }
+      end
+    rescue
+      respond_to do |format|
+        format.html { redirect_to contacts_url, notice: 'Invalid CSV format. Make sure required columns are present.' }
+        format.json { head :no_content }
+      end
+    end
+
+  end
+
   # PATCH/PUT /contacts/1
   # PATCH/PUT /contacts/1.json
   def update
