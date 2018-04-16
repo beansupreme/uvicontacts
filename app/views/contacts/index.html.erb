@@ -1,15 +1,18 @@
+<br>
+
 <div class="row">
   <div class="col">
     <% if notice.present? %>
-      <div class="alert alert-info">
+      <div class="alert alert-warning">
         <p id="notice"><%= notice %></p>
       </div>
     <% end %>
 
-    <h1>Listing Contacts</h1>
+    <h1>Office Emergency Contacts</h1>
   </div>
 </div>
 
+<br>
 
 <div class="row">
   <div class="col">
@@ -44,7 +47,7 @@
       </table>
       <%= will_paginate @contacts %>
       <br>
-      <%= submit_tag "Delete Selected Contacts", class: 'btn btn-danger'%>
+      <%= submit_tag "Delete Selected Contacts", class: 'btn btn-danger', data: { confirm: "Delete All Selected Contacts?" }%>
     <% end %>
   </div>
 </div>
@@ -62,7 +65,7 @@
 <br>
 
 <div class="row">
-  <div class="col">
+  <div class="col-md-9">
     <h5>Import a list of contacts</h4>
     <div class="alert alert-info">
       <p>CSV file must have these 4 columns in order: Name, Telephone, Emergency Contact Name, and Emergency Contact Telephone. Uploading the same names twice will result in duplicate contacts.</p>

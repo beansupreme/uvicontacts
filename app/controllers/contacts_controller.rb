@@ -39,8 +39,8 @@ class ContactsController < ApplicationController
   end
 
   def import
-    file = params.require(:file)
     begin
+      file = params.require(:file)
       Contact.import(file)
       respond_to do |format|
         format.html { redirect_to contacts_url, notice: 'Contacts were successfully imported' }
