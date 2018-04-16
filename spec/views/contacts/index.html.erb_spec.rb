@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "contacts/index", type: :view do
-  before(:each) do
-    assign(:contacts, [
+  let!(:contacts_list) do
+    [
       Contact.create!(
         :name => "Name",
         :telephone => "Telephone",
@@ -15,7 +15,11 @@ RSpec.describe "contacts/index", type: :view do
         :emergency_contact_name => "Emergency Contact Name",
         :emergency_contact_telephone => "Emergency Contact Telephone"
       )
-    ])
+    ]
+  end
+
+  before(:each) do
+    assign(:contacts, Contact.paginate(page: 1))
   end
 
   it "renders a list of contacts" do
